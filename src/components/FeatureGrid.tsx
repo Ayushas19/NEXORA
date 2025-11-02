@@ -1,5 +1,4 @@
-import { 
-  Video, 
+import {  
   Brain, 
   MessageSquare, 
   BookOpen, 
@@ -7,40 +6,48 @@ import {
   FileText, 
   Briefcase, 
   HelpCircle, 
-  Trophy 
+  Trophy,
+  Stars,
+  CheckCircle,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { link } from "fs";
 
 const features = [
   {
-    icon: Video,
+    icon: FileText,
     title: "Chatdoc",
-    description: "AI mock interviews with posture check, smart questions, and detailed feedback",
-    gradient: "from-purple-500 to-pink-500",
+    description: "it provides the usable notes from any PDF using AI",
+    gradient: "from-pink-500 to-rose-500",
+    link:"https://chatdoc.com"
   },
   {
     icon: FileText,
     title: "Glasp",
-    description: "15,000+ role-wise interview questions for smart preparation",
+    description: "It summarizes articles, papers, and videos into concise notes",
     gradient: "from-pink-500 to-rose-500",
+    link:"https://glasp.co"
   },
    {
     icon: MessageSquare,
     title: "Fireflies",
-    description: "Chat space for students to discuss doubts, exams, and placements",
+    description: "It transcribes meetings, interviews, and calls automatically",
     gradient: "from-green-500 to-emerald-500",
+    link:"https://fireflies.ai/"
   },
    {
     icon: BookOpen,
     title: "FreeB",
-    description: "Curated free courses on trending skills like web dev, AI, and more",
+    description: "It provides free access to paid books and study materials",
     gradient: "from-orange-500 to-red-500",
+    link:"https://annas-archive.org/"
   },
   {
     icon: Map,
     title: "Roadmap",
     description: "AI guide from courses to career - what to learn, skip, and do",
     gradient: "from-indigo-500 to-purple-500",
+    link:"https://scribehow.com"
   },
   {
     icon: Brain,
@@ -51,8 +58,9 @@ const features = [
   {
     icon: HelpCircle,
     title: "Scholary",
-    description: "AI chatbot active 24/7 for instant notes and doubt solving",
+    description: "It summarizes long PDFs into flash cards for quick learning",
     gradient: "from-teal-500 to-cyan-500",
+    link:"https://www.scholarcy.com/"
   },
   {
     icon: Briefcase,
@@ -69,16 +77,16 @@ const features = [
     link:"https://www.hackerearth.com/challenges/hackathon/"
   },
    {
-    icon: Trophy,
+    icon: Stars,
     title: "Poe",
     description: "A place where you will get all the diferent  AI Chatbots",
     gradient: "from-violet-500 to-purple-500",
     link:"https://poe.com"
   },
    {
-    icon: Trophy,
+    icon: CheckCircle,
     title: "Wolframalpha",
-    description: "Get all the latest hackathons and tech events details",
+    description: "It provides step-by-step solutions for math and science problems",
     gradient: "from-violet-500 to-purple-500",
     link:"https://www.wolframalpha.com"
   },

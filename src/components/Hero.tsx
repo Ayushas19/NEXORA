@@ -28,10 +28,17 @@ const Hero = () => {
       <div className="container mx-auto px-4 z-10 text-center">
         <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-card/50 backdrop-blur-sm border border-border rounded-full">
-            <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium">Empowering Students Worldwide</span>
-          </div>
+            <a 
+              href="https://nex-ai-t69g.onrender.com/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="inline-block hover:opacity-80 transition-opacity"
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-card/50 backdrop-blur-sm border border-border rounded-full">
+                <Sparkles className="w-4 h-4 text-primary" />
+                <span className="text-sm font-medium">Hey buddy!</span>
+              </div>
+            </a>
 
           {/* Main Heading */}
           <h1 className="text-5xl md:text-7xl font-bold leading-tight">

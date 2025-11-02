@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Search, Menu, X, GraduationCap } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -7,6 +7,21 @@ import { Input } from "@/components/ui/input";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery("");
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch(e);
+    }
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
@@ -22,16 +37,17 @@ const Navbar = () => {
 
           {/* Search Bar - Desktop */}
           <div className="hidden md:flex items-center flex-1 max-w-xl mx-8">
-            <div className="relative w-full">
+            <form onSubmit={handleSearch} className="relative w-full">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
                 type="text"
                 placeholder="Search courses, notes, videos..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 bg-card border-border"
+                onKeyPress={handleKeyPress}
+                className="pl-10 bg-card border-border text-black caret-black"
               />
-            </div>
+            </form>
           </div>
 
           {/* Auth Buttons - Desktop */}
@@ -58,7 +74,7 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden py-4 animate-slide-in">
-            <div className="mb-4">
+            <form onSubmit={handleSearch} className="mb-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
@@ -66,10 +82,11 @@ const Navbar = () => {
                   placeholder="Search..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10"
+                  onKeyPress={handleKeyPress}
+                  className="pl-10 text-black caret-black"
                 />
               </div>
-            </div>
+            </form>
             <div className="flex flex-col gap-2">
               <Link to="/auth?mode=login">
                 <Button variant="ghost" className="w-full">

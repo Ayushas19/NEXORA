@@ -11,32 +11,35 @@ const VideoLecturesSection = () => {
     {
       id: 1,
       title: "Complete Web Development Bootcamp",
-      channel: "Code Academy",
-      duration: "12:45:30",
+      channel: "CodeWithHarry",
+      duration: ">>playlist",
       views: "2.4M",
       rating: 4.8,
       thumbnail: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
       notesCount: 234,
+      link: "https://youtube.com/playlist?list=PLu0W_9lII9agq5TrH9XLIKQvv0iaF2X3w&si=a2EnPXbIbnT4Stj2"
     },
     {
       id: 2,
-      title: "Machine Learning A-Z: Hands-On Python",
-      channel: "AI Masters",
-      duration: "44:30:00",
-      views: "1.8M",
+      title: "Machine Learning A-Z: Hands-On Pytho",
+      channel: "WsCube Tech",
+      duration: "10:16:46",
+      views: "1.5M",
       rating: 4.9,
       thumbnail: "https://images.unsplash.com/photo-1677442136019-21780ecad995",
       notesCount: 567,
+      link:"https://youtu.be/LvC68w9JS4Y?si=UhddX5t0lo19KIps"
     },
     {
       id: 3,
       title: "Data Structures & Algorithms",
-      channel: "CS Fundamentals",
-      duration: "28:15:45",
+      channel: "take U forward",
+      duration: ">>playlist",
       views: "3.2M",
       rating: 4.7,
       thumbnail: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4",
       notesCount: 892,
+      link:"https://youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&si=jkOwzZftAD579Cce"
     },
   ];
 
@@ -70,9 +73,17 @@ const VideoLecturesSection = () => {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Button size="lg" className="gradient-bg shadow-glow rounded-full">
-                    <Play className="w-6 h-6" />
-                  </Button>
+                  {video.link ? (
+                    <a href={video.link} target="_blank" rel="noopener noreferrer">
+                      <Button size="lg" className="gradient-bg shadow-glow rounded-full">
+                        <Play className="w-6 h-6" />
+                      </Button>
+                    </a>
+                  ) : (
+                    <Button size="lg" className="gradient-bg shadow-glow rounded-full">
+                      <Play className="w-6 h-6" />
+                    </Button>
+                  )}
                 </div>
                 <Badge className="absolute top-2 right-2 bg-black/80 text-white">
                   {video.duration}
@@ -81,7 +92,13 @@ const VideoLecturesSection = () => {
 
               <CardContent className="p-4">
                 <h3 className="font-bold text-lg mb-2 line-clamp-2 group-hover:text-primary transition-colors">
-                  {video.title}
+                  {video.link ? (
+                    <a href={video.link} target="_blank" rel="noopener noreferrer" className="block">
+                      {video.title}
+                    </a>
+                  ) : (
+                    video.title
+                  )}
                 </h3>
                 <p className="text-sm text-muted-foreground mb-3">{video.channel}</p>
                 
@@ -109,7 +126,13 @@ const VideoLecturesSection = () => {
                   <Bookmark className={`w-4 h-4 mr-2 ${savedVideos.includes(video.id) ? 'fill-current' : ''}`} />
                   {savedVideos.includes(video.id) ? 'Saved' : 'Save'}
                 </Button>
-                <Button className="flex-1 gradient-bg">View Notes</Button>
+                {video.link ? (
+                  <a href={video.link} target="_blank" rel="noopener noreferrer" className="flex-1">
+                    <Button className="w-full gradient-bg">View</Button>
+                  </a>
+                ) : (
+                  <Button className="flex-1 gradient-bg">View</Button>
+                )}
               </CardFooter>
             </Card>
           ))}

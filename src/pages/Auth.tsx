@@ -15,6 +15,8 @@ const Auth = () => {
   const mode = searchParams.get("mode") || "login";
   const [isLogin, setIsLogin] = useState(mode === "login");
   const [loading, setLoading] = useState(false);
+  const [verificationPending, setVerificationPending] = useState(false);
+  const [resending, setResending] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -45,7 +47,10 @@ const Auth = () => {
         });
 
         if (error) {
-          if (error.message.includes("Invalid login credentials")) {
+          if (error.message.includes("Email not confirmed") || error.message.includes("email not confirmed")) {
+            setVerificationPending(true);
+            toast.error("Please verify your email. You can resend the verification email below.");
+          } else if (error.message.includes("Invalid login credentials")) {
             toast.error("Invalid email or password. Please try again.");
           } else {
             toast.error(error.message);
@@ -76,14 +81,35 @@ const Auth = () => {
             toast.error(error.message);
           }
         } else {
-          toast.success("Account created! Redirecting to dashboard...");
-          navigate("/dashboard");
+          setVerificationPending(true);
+          toast.success("Account created! Check your email to verify your account.");
         }
       }
     } catch (error: any) {
       toast.error(error.message || "An error occurred");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleResendEmail = async () => {
+    setResending(true);
+    try {
+      const redirectUrl = `${window.location.origin}/`;
+      const { data, error } = await supabase.auth.resend({
+        type: "signup",
+        email: formData.email,
+        options: { emailRedirectTo: redirectUrl },
+      });
+      if (error) {
+        toast.error(error.message);
+      } else {
+        toast.success("Verification email resent. Please check your inbox.");
+      }
+    } catch (e: any) {
+      toast.error(e?.message || "Failed to resend verification email");
+    } finally {
+      setResending(false);
     }
   };
 
@@ -188,6 +214,28 @@ const Auth = () => {
                   "Create Account"
                 )}
               </Button>
+
+              {verificationPending && (
+                <div className="mt-4 text-center space-y-2">
+                  <p className="text-sm text-muted-foreground">
+                    Email not confirmed. Please verify your email to continue.
+                  </p>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handleResendEmail}
+                    disabled={resending || !formData.email}
+                  >
+                    {resending ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending...
+                      </>
+                    ) : (
+                      "Resend verification email"
+                    )}
+                  </Button>
+                </div>
+              )}
             </form>
 
             <div className="mt-6 text-center text-sm">
