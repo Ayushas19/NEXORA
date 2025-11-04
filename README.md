@@ -51,7 +51,7 @@ Installation
 Clone the repository
 
 
-git clone https://github.com/your-username/nexora.git
+git clone https://github.com/Ayushas19/NEXORA
 cd nexora
 Install dependencies
 
