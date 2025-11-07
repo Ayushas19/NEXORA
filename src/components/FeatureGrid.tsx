@@ -95,7 +95,7 @@ const features = [
     title: "Student Connect",
     description: "Chat space for students to discuss doubts, exams, and placements",
     gradient: "from-green-500 to-emerald-500",
-    link:"nexbox-production.up.railway.app"
+    link:"https://nexbox-production.up.railway.app"
   },
    
 ];
